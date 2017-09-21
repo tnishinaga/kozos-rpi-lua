@@ -4,15 +4,16 @@
 # == CHANGE THE SETTINGS BELOW TO SUIT YOUR ENVIRONMENT =======================
 
 # Your platform. See PLATS for possible values.
-PLAT= none
+PLAT= generic
 
-CC= gcc -std=gnu99
+CROSS= arm-none-eabi-
+CC= $(CROSS)gcc -std=gnu99
 CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
 LIBS= -lm $(SYSLIBS) $(MYLIBS)
 
-AR= ar rcu
-RANLIB= ranlib
+AR= $(CROSS)ar rcu
+RANLIB= $(CROSS)ranlib
 RM= rm -f
 
 SYSCFLAGS=
