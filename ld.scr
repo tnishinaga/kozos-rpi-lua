@@ -7,6 +7,7 @@ MEMORY
 	ramall(rwx)	: o = 0x00000000, l = 0x1c000000 /* 512-64MB */
 	ram(rwx)	: o = 0x00008000, l = 0x1bff8000 /* entry point(0x8000) - end(0x1c000000) */
 
+	heap(rw)	: o = 0x10000000, l = 0x09000000 /* top of RAM */
 	softvec(rw)	: o = 0x19000000, l = 0x00000040 /* top of RAM */
 	userstack(rw)	: o = 0x1a000000, l = 0x00000000 /* fiq - 16MB */
 	bootstack(rw)	: o = 0x1b000000, l = 0x00000000 /* svc - 16MB */
@@ -56,6 +57,12 @@ SECTIONS
 	.freearea : {
 		_freearea = .;
 	} > ram
+
+	. = ALIGN(4);
+
+	.heap : {
+		_heap = .;
+	} > heap
 
 	. = ALIGN(4);
 

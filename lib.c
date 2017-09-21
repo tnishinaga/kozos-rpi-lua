@@ -143,14 +143,15 @@ int _exit()
 
 int _fstat() { return 0; }
 int _open() { return 0; }
+
+extern char _heap;
+char *_heap_tail = &_heap;
+
 void *_sbrk(int incr)
 {
-  static char buf[1024*64];
-  static char *p = buf;
-  char *oldp;
-  oldp = p;
-  p += incr;
-  return oldp;
+  char *p = _heap_tail;
+  _heap_tail += incr;
+  return (void *)p;
 }
 int _kill() { return 0; }
 int _getpid() { return 0; }
