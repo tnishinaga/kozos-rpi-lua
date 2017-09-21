@@ -48,6 +48,7 @@ int serial_is_send_enable(int index)
 /* １文字送信 */
 int serial_send_byte(int index, unsigned char c)
 {
+  while (!serial_is_send_enable(index));
   *UART0_DR = c;
   return 0;
 }
@@ -62,6 +63,7 @@ int serial_is_recv_enable(int index)
 /* １文字受信 */
 unsigned char serial_recv_byte(int index)
 {
+  while (!serial_is_recv_enable(index));
   return (*UART0_DR & 0xff);
 }
 
